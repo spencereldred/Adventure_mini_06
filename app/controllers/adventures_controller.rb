@@ -3,16 +3,12 @@ class AdventuresController < ApplicationController
     @adventures = Adventure.all.where(library_id: library_id)  
     respond_to do |f| 
       f.html
-      f.json { render json: @adventures.to_json(include: :pages) }
+      f.json { render json: @adventures.to_json(except: [:id], include: [pages: { except: [:id, :adventure_id] } ] ) }
     end
   end
 
   def show
     @adventure = Adventure.find(id)
-    respond_to do |f| 
-      f.html
-      f.json { render json: @adventure.to_json }
-    end
   end
 
   def new
@@ -21,6 +17,10 @@ class AdventuresController < ApplicationController
       f.html
       f.json { render json: {}, status: 404}   
     end
+  end
+
+  def create
+    @adventure = Adventure.create(adventure_params)
   end
 
   def edit
@@ -32,6 +32,10 @@ class AdventuresController < ApplicationController
   end
 
   private
+
+    def adventure_params
+      params.require(:adventure).permit(:title, :author)
+    end
 
     def library_id
       params[:library_id]

@@ -24,7 +24,7 @@ describe AdventuresController do
       get 'index', { format: :json }
       response.should be_success
     end
-    it "returns a list of adventures originating from this server and incudes their pages" do
+    it "returns a list of adventures originating from this server and incudes their pages but not their ids" do
        adventures = []
        for i in 1..5 do
          adventures << Adventure.create!(:title => "#{i} Test Adventure", :author => "person #{i}")
@@ -35,10 +35,11 @@ describe AdventuresController do
        get 'index', {format: :json}
        response.body.should include adventures[1].title.to_json
        response.body.should include adventures[3].author.to_json
-       response.body.should include adventures[0].pages[0].to_json
-       response.body.should include adventures[0].pages[1].to_json
-       response.body.should include adventures[2].pages[0].to_json
+       response.body.should include adventures[0].pages[0].to_json(except: [:id, :adventure_id])
+       response.body.should include adventures[0].pages[1].to_json(except: [:id, :adventure_id])
+       response.body.should include adventures[2].pages[0].to_json(except: [:id, :adventure_id])
        response.body.should_not include adventures[-1].title.to_json
+       response.body.should_not include adventures[0].id.to_json
      end
    end
  

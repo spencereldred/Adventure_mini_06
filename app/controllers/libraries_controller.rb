@@ -3,7 +3,7 @@ class LibrariesController < ApplicationController
     @libraries = Library.all 
     respond_to do |f|   
       f.html
-      f.json { render json: @libraries.to_json }
+      f.json { render json: @libraries.to_json(except: [:id]) }
     end
   end
 
@@ -11,7 +11,7 @@ class LibrariesController < ApplicationController
     @library = Library.find(id)
     respond_to do |f|   
       f.html
-      f.json {render json: @library.to_json }
+      f.json {render json: @library.to_json(except: [:id]) }
     end
   end
 

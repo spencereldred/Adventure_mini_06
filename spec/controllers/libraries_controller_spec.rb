@@ -22,10 +22,11 @@ describe LibrariesController do
       get 'index', { format: :json }
       response.status.should == 200
     end
-    it "includes libraries for json" do 
+    it "includes libraries without ids for json" do 
       get 'index', { format: :json }
-      response.body.should include @libraries[3].to_json
-      response.body.should include @libraries[1].to_json
+      response.body.should include @libraries[3].to_json(except: :id)
+      response.body.should include @libraries[1].to_json(except: :id)
+      response.body.should_not include @libraries[2].to_json(only: :id)
     end
   end
 
@@ -47,9 +48,10 @@ describe LibrariesController do
       get 'show', { id: @library.id}, { format: :json }
       response.status.should == 200
     end
-    it "includes library for json" do 
+    it "includes library without id for json" do 
       get 'show', { id: @library.id, format: :json}
-      response.body.should include @library.to_json
+      response.body.should include @library.to_json(except: :id)
+      response.body.should_not include @library.to_json(only: :id)
     end
   end
 
