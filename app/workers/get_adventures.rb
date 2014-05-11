@@ -7,14 +7,16 @@
      begin
        library = Library.find(id)
      rescue
-       puts "oops"
+       puts "oops Library not found"
+       puts "Library id : #{id}"
      else
        url = URI.parse(library.url  "adventures.json")
        begin
          response = Net::HTTP.get(url)
          result = JSON.parse(response)['adventures']
        rescue
-         puts "oops"
+         puts "oops result could not be parsed"
+         puts "respond.body : #{respond.body}"
        else
          result.each do |a|
            adventure_found = Adventure.find_by_guid(a['guid'])
