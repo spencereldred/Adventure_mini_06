@@ -1,5 +1,3 @@
-require 'sidekiq/testing'
- Sidekiq::Testing.inline!
  class GetAdventures
  
    include Sidekiq::Worker
@@ -22,7 +20,7 @@ require 'sidekiq/testing'
            if adventure_found
              adventure_found.destroy
            end
-           adv = Adventure.create(title: a['title'], author: a['title'], library_id: id, guid: a['guid'])
+           adv = Adventure.create(title: a['title'], author: a['author'], library_id: id, guid: a['guid'])
            binding
            a['pages'].each do |p|
              adv.pages.create(name: p['name'], text: p['text'])
