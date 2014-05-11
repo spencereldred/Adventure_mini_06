@@ -4,7 +4,11 @@ class AdventuresController < ApplicationController
     @otherAdventures = Adventure.all.where.not(library_id: library_id)
     respond_to do |f| 
       f.html
-      f.json { render json: @adventures.to_json(except: [:id], include: [pages: { except: [:id, :adventure_id] } ] ) }
+      f.json { render json: 
+        { adventures: 
+          @adventures.as_json(except: [:id, :created_at], 
+            include: [pages: { except: [:id, :adventure_id, :created_at] } ]
+              ) } }    
     end
   end
 
