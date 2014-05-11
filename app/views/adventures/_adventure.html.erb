@@ -1,1 +1,8 @@
-<%= debug adventure %>
+<div>
+ <h4><%= adventure.title %></h4>id: <%= adventure.id %>
+ <h6>by <%= adventure.author %></h6>
+ <% if  adventure.pages.first %>
+   <a href="<%= adventure_page_path(adventure.id, adventure.pages.first.id )%>">Click here to start!</a></div>
+ <% else %>
+   error: this adventure doesn't have any pages id: <%= adventure.id %>
+ <% end %>
