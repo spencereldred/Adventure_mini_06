@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20140510194525) do
     t.integer  "library_id"
     t.string   "title"
     t.string   "author"
-    t.string   "GUID"
+    t.string   "guid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

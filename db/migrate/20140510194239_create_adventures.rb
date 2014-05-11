@@ -4,7 +4,7 @@ class CreateAdventures < ActiveRecord::Migration
       t.references :library, index: true
       t.string :title
       t.string :author
-      t.string :GUID
+      t.string :guid
 
       t.timestamps
     end
