@@ -1,6 +1,7 @@
 class AdventuresController < ApplicationController
   def index
     @adventures = Adventure.all.where(library_id: library_id)  
+    @otherAdventures = Adventure.all.where.not(library_id: library_id)
     respond_to do |f| 
       f.html
       f.json { render json: @adventures.to_json(except: [:id], include: [pages: { except: [:id, :adventure_id] } ] ) }

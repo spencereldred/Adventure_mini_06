@@ -1,2 +1,5 @@
 <h1>Libraries#new</h1>
-<p>Find me in app/views/libraries/new.html.erb</p>
+<%= form_for @library do |f| %>
+  <%= f.url_field :url %>
+  <%= f.submit %>
+<% end %>

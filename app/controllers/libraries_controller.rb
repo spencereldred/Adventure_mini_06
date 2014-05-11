@@ -23,7 +23,25 @@ class LibrariesController < ApplicationController
     end
   end
 
+  def create
+    l = Library.find_by_url(params[:library][:url])
+    l.destroy if 1
+    library = Library.new(library_params)
+    if library.save
+      GetLibraries.perform_async(library.url)
+      GetLibraries.perform_async(library.id)
+      redirect_to "/adventures"
+    else
+      redirect_to "new"
+    end
+  end
+
   private
+
+    def library_params
+      params.require(:library).permit(:url)
+    end
+
     def id
       params[:id]
     end

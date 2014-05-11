@@ -1,3 +1,3 @@
 class Page < ActiveRecord::Base
-  belongs_to :adventure
+  belongs_to :adventure, dependent: :destroy
 end
